@@ -1,3 +1,5 @@
+import { parseRoutePath } from "./utils/parseRoutePath.js"
+
 export const routes = [
     {
         method: "GET",
