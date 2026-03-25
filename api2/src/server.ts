@@ -1,21 +1,21 @@
-import express from "express"
-import { myMiddleware } from "../middlewares/myMiddleware"
+import express, { Request, Response, NextFunction} from "express"
+import { routes } from "./routes"
+import { AppError } from "./utils/AppError"
 
 const PORT = 3333
+
 const app = express()
 app.use(express.json())
-app.use(myMiddleware)
 
-app.get("/products/:id/:user", (request, response) => {
-    const { id, user } = request.params
-    const { limit, page } = request.query
-    response.send(`id: ${id}, user: ${user}`)
+app.use(routes)
+
+app.use((error: any, request: Request, response: Response, next: NextFunction) => {
+    if (error instanceof AppError) {
+        return response.status(error.statusCode).json({message: error.message})
+    }
+    response.status(500).json({ message: error.message })
 })
-app.post("/products", myMiddleware, (request, response) => {
-    const { name, price } = request.body
-    // response.send(`name: ${name}, price: ${price}`)
-    response.status(201).json({name, price, user_id: request.user_id})
-})
+
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)
 })
