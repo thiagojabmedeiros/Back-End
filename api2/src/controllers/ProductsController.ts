@@ -20,7 +20,7 @@ export class ProductsController {
             name: z
             .string({required_error: "name is required"})
             .trim()
-            .min(6, {message: "name must be 6 or more characters"}),
+            .min(6, {message: "name must be 6 or more characters"}).nullish(),
             price: z
             .number({required_error: "price is required"})
             .positive({message: "price must be positive"})
