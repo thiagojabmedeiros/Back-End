@@ -5,11 +5,10 @@ const PORT = 3333
 
 app.use(express.json())
 
-app.get("/person", async (request: Request, response: Response) => {
-    const { name, age } = request.body
-
-    return response.status(200).json({ name, age, sex: "masculine" })
+app.get("/", async (request: Request, response: Response) => {
+    response.status(200).end("hello, image version 2!")
 })
+
 
 app.listen(PORT, () => {
     console.log(`you are on port ${PORT}`)
