@@ -2,5 +2,6 @@ node_modules
 dist
 Dockerfile
 .git
-.Dockerfile
 .gitignore
+.Dockerfile
+docker-compose.yml

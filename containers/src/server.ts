@@ -6,7 +6,7 @@ const PORT = 3333
 app.use(express.json())
 
 app.get("/", async (request: Request, response: Response) => {
-    response.status(200).end("hello, image version 2!")
+    response.status(200).end("hello, container!")
 })
 
 

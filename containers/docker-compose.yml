@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  api: 
+    build:
+      context: . # catch the root of files
+      dockerfile: Dockerfile # search for the file with this name
+    image: nodejs # its image name
+    container_name: api # container name
+    ports: # -p command on terminal
+      - "3333:3333"
+    depends_on: # depends on the database container
+      - postgres
+  
+  postgres:
+    image: "bitnami/postgresql:latest" # image not local
+    container_name: postgres # name
+    ports: # -p command on terminal
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: api # name of database
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:
