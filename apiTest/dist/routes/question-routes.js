@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.questionRoute = void 0;
+const QuestionController_1 = require("../controllers/QuestionController");
+const question_middlewares_1 = require("../middlewares/question-middlewares");
+const express_1 = require("express");
+const questionController = new QuestionController_1.QuestionController();
+const questionRoute = (0, express_1.Router)();
+exports.questionRoute = questionRoute;
+questionRoute.get("/", questionController.index);
+questionRoute.get("/:id", questionController.search);
+questionRoute.post("/", question_middlewares_1.createQuestionMiddleware, questionController.create);
+questionRoute.put("/:id", question_middlewares_1.editQuestionMiddleware, questionController.edit);
+questionRoute.delete("/:id", question_middlewares_1.removeQuestionMiddleware, questionController.remove);

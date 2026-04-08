@@ -1,6 +1,6 @@
+import { userRoute } from "./user-routes"
+import { questionRoute } from "./question-routes"
 import { Router } from "express"
-import { userRoute } from "./user-route"
-import { questionRoute } from "./question-route"
 
 const routes = Router()
 

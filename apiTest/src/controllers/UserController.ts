@@ -1,4 +1,5 @@
-import { Request, Response } from "express"
+import { Response, Request } from "express"
+import { prisma } from "../prisma"
 
 class UserController {
     /**
@@ -6,16 +7,22 @@ class UserController {
      * search - get
      * create - post
      */
-    index(request: Request, response: Response) {
-        response.status(200).json({})
-    }
-    
-    search(request: Request, response: Response) {
-        response.status(200).json({})
+
+    async index (request: Request, response: Response) {
+        const users = await prisma.user.findMany()
+        response.status(200).json(users)
     }
 
-    create(request: Request, response: Response) {
-        response.status(201).json({})
+    async search (request: Request, response: Response) {
+        const { id } = request.params
+        const user = await prisma.user.findUnique({ where: {id}})
+        response.status(200).json(user)
+    }
+
+    async create (request: Request, response: Response) {
+        const { name, email } = request.body
+        await prisma.user.create({ data: { name, email }})
+        response.status(201).json({ name, email })
     }
 }
 
