@@ -1,2 +1,2 @@
 # Back-End
-Estudo de programação web: node.js e NestJS.
+Studying web-programming: node.js e NestJS.
