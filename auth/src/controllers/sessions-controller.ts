@@ -1,8 +1,29 @@
 import { Request, Response } from "express"
+import { AppError } from "../utils/AppError"
+import { authConfig } from "../configs/auth"
+import { sign } from "jsonwebtoken"
 
 class SessionsController {
   async create(request: Request, response: Response) {
-    return response.status(201).json({ message: "session created" })
+    const { username, password } = request.body
+    const fakeUser = {
+      id: "1",
+      username: "thiago",
+      password: 12345,
+      role: "sale",
+    }
+
+    if (username !== fakeUser.username || password !== fakeUser.password) {
+      throw new AppError("username and/or password is wrong", 401)
+    }
+
+    const { secret, expiresIn } = authConfig.jwt
+    const token = sign({role: fakeUser.role}, secret, {
+      expiresIn,
+      subject: String(fakeUser.id)
+    })
+
+    return response.status(201).json({ token })
   }
 }
 
