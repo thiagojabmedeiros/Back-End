@@ -53,6 +53,4 @@ app.get("/user", authMiddleware, (req, res) => {
     res.status(200).json({ message: "user" })
 })
 
-app.listen(PORT, () => {
-    console.log(`The server is running on ${PORT}.`)
-})
+app.listen(PORT, () => { console.log(`The server is running on ${PORT}.`) })
