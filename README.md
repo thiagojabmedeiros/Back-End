@@ -1,2 +1,2 @@
 # Back-End
-Studying web-programming: node.js e NestJS.
+Studying web-programming: Node.js, NestJS, Express.js, JWT, Zod, Sequelize, PostgreSQL and Docker.
