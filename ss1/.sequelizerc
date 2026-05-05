@@ -1,0 +1,7 @@
+const path = require('path')
+
+const sequelizeRc = {
+    'config': path.resolve('config', 'config.js')
+}
+
+module.exports = sequelizeRc
