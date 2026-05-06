@@ -1,12 +1,22 @@
 class UserController {
     async store(request, response) {
-        const { name } = request.body
-        return response.status(201).json({ hello: name })
+        try {
+            const { name } = request.body
+            return response.status(201).json({ hello: name })
+        } catch(error) {
+            console.log(error)
+            return response.json({ message: error })
+        }
     }
     
     async search(request, response) {
-        const { id } = request.params
-        return response.status(200).json({ hello: id })
+        try {
+            const { id } = request.params
+            return response.status(200).json({ hello: id })
+        } catch(error) {
+            console.log(error)
+            return response.json({ message: error })
+        }
     }
 }
 
