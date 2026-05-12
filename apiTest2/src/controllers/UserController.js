@@ -1,3 +1,4 @@
+
 class UserRoutes {
     async create(request, response) {
 
