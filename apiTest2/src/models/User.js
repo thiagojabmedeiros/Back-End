@@ -1,6 +1,4 @@
-const Sequelize = require('sequelize')
-const Model = Sequelize.Model
-const DataTypes = Sequelize.DataTypes
+const { Model, DataTypes } = require('sequelize')
 
 class User extends Model {
     static init(sequelize) {
@@ -9,7 +7,7 @@ class User extends Model {
             email: DataTypes.STRING
         }, {
             sequelize,
-            'tableName': 'users'
+            tableName: 'users'
         })
     }
 }
