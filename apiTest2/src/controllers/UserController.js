@@ -3,7 +3,7 @@ const { z } = require('zod')
 
 class UserRoutes {
 
-    async static create(request, response) {
+    async create(request, response) {
         try {
             const bodySchema = z.object({
                 name: z
@@ -35,7 +35,7 @@ class UserRoutes {
         }
     }
 
-    async static search(request, response) {
+    async search(request, response) {
         try {
             const idSchema = z.object({
                 id: z
@@ -61,7 +61,7 @@ class UserRoutes {
         }
     }
 
-    async static index(request, response) {
+    async index(request, response) {
         try {
             const users = await User.findAll({
                 order: [["id", "ASC"]]
@@ -75,7 +75,7 @@ class UserRoutes {
         }
     }
 
-    async static remove(request, response) {
+    async remove(request, response) {
         try {
             const idSchema = z.object({
                 id: z
@@ -98,7 +98,7 @@ class UserRoutes {
         }
     }
 
-    async static change(request, response) {
+    async change(request, response) {
         try {
             const idSchema = z.object({
                 id: z
