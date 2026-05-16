@@ -1,12 +1,11 @@
 const express = require('express')
 const userRoute = express.Router()
 const UserController = require('../controllers/UserController')
-const userController = new UserController()
 
-userRoute.get('/', userController.index)
-userRoute.get('/:id', userController.search)
-userRoute.post('/', userController.create)
-userRoute.delete('/:id', userController.remove)
-userRoute.patch('/:id', userController.change)
+userRoute.get('/', UserController.index)
+userRoute.get('/:id', UserController.search)
+userRoute.post('/', UserController.create)
+userRoute.delete('/:id', UserController.remove)
+userRoute.patch('/:id', UserController.change)
 
 module.exports = userRoute

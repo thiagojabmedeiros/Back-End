@@ -3,7 +3,7 @@ const { z } = require('zod')
 
 class UserRoutes {
 
-    async create(request, response) {
+    async static create(request, response) {
         try {
             const bodySchema = z.object({
                 name: z
@@ -35,7 +35,7 @@ class UserRoutes {
         }
     }
 
-    async search(request, response) {
+    async static search(request, response) {
         try {
             const idSchema = z.object({
                 id: z
@@ -48,7 +48,7 @@ class UserRoutes {
 
             const user = await User.findByPk(id)
 
-            if (user === null) {
+            if (!user) {
                 return response.status(400).json({ message: "user does not exist in this table" })
             }
             
@@ -61,7 +61,7 @@ class UserRoutes {
         }
     }
 
-    async index(request, response) {
+    async static index(request, response) {
         try {
             const users = await User.findAll({
                 order: [["id", "ASC"]]
@@ -75,7 +75,7 @@ class UserRoutes {
         }
     }
 
-    async remove(request, response) {
+    async static remove(request, response) {
         try {
             const idSchema = z.object({
                 id: z
@@ -85,7 +85,7 @@ class UserRoutes {
             })
             const { id } = idSchema.parse(request.params)
             const user = await User.findByPk(id)
-            if (user === null) {
+            if (!user) {
                 return response.status(400).json({ message: "user does not exist" })
             }
             await user.destroy()
@@ -98,7 +98,7 @@ class UserRoutes {
         }
     }
 
-    async change(request, response) {
+    async static change(request, response) {
         try {
             const idSchema = z.object({
                 id: z
@@ -114,7 +114,7 @@ class UserRoutes {
             const { id } = idSchema.parse(request.params)
             const user = await User.findByPk(id)
 
-            if (user === null) {
+            if (!user) {
                 return response.status(400).json({ message: "user does not exist" })
             }
             const { name, email } = bodySchema.parse(request.body)
@@ -130,6 +130,7 @@ class UserRoutes {
             return response.status(500).json({ message: error })
         }
     }
+    
 }
 
 module.exports = UserRoutes
