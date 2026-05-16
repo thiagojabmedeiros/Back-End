@@ -5,6 +5,6 @@ const express = require('express')
 const routes = express.Router()
 
 routes.use('/users', userRoutes)
-routes.use('/users', addressRoutes)
+routes.use('/addresses', addressRoutes)
 
 module.exports = routes

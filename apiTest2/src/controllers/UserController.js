@@ -100,7 +100,7 @@ class UserRoutes {
 
     async change(request, response) {
         try {
-            const idSchema = z.object({
+            const paramsSchema = z.object({
                 id: z
                 .coerce
                 .number({ required_error: "id is required" })
@@ -111,7 +111,7 @@ class UserRoutes {
                 email: z.string({ required_error: "email is a string" }).email({ message: "invalid email format" }).trim().nullish(),
             })
 
-            const { id } = idSchema.parse(request.params)
+            const { id } = paramsSchema.parse(request.params)
             const user = await User.findByPk(id)
 
             if (!user) {
