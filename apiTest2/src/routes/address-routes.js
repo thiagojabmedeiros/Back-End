@@ -3,10 +3,10 @@ const addressRoutes = express.Router()
 const AddressController = require('../controllers/AddressController')
 const addressController = new AddressController()
 
-addressRoutes.get('/', addressController.index)
-addressRoutes.get('/:userId', addressController.search)
-addressRoutes.post('/:userId', addressController.create)
-addressRoutes.patch('/:userId/:id', addressController.change)
-addressRoutes.delete('/:userId/:id', addressController.remove)
+addressRoutes.get('/:userId/addresses', addressController.index)
+addressRoutes.get('/:userId/addresses/:id', addressController.search)
+addressRoutes.post('/:userId/addresses', addressController.create)
+addressRoutes.patch('/:userId/addresses/:id', addressController.change)
+addressRoutes.delete('/:userId/addresses/:id', addressController.remove)
 
 module.exports = addressRoutes

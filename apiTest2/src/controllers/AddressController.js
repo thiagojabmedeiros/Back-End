@@ -44,7 +44,9 @@ class AddressController {
             if (error instanceof z.ZodError) {
                 return response.status(400).json({ message: error.issues })
             }
-            return response.status(500).json({ message: error })
+            if (error instanceof Error) {
+                return response.status(500).json({ message: error.message })
+            }
         }
 
         
@@ -55,38 +57,63 @@ class AddressController {
             const idSchema = z.object({
                 userId: z
                 .coerce
-                .number({ required_error: 'id is required' })
-                .int({ message: 'id is an integer'})
+                .number({ required_error: 'user id is required' })
+                .int({ message: 'user id is an integer'}),
+                id: z.coerce
+                .number({ required_error: 'address id is required'})
+                .int({ message: 'address id is an integer' })
             })
-            const { userId } = idSchema.parse(request.params)
+
+            const { userId, id } = idSchema.parse(request.params)
             const user = await User.findByPk(userId)
 
             if (!user) {
                 return response.status(400).json({ message: 'user does not exist '})
             }
-            const addresses = await Address.findAll({
+
+            const addresses = await Address.findOne({
                 where: { 
-                    userId: userId
+                    userId: userId,
+                    id: id
                 }
             })
 
-            if (addresses.length === 0) {
-                return response.json({ message: "this user has no addresses associated" })
+            if (!addresses) {
+                return response.json({ message: "this address is not associated" })
             }
 
             return response.status(200).json(addresses)
+
         } catch(error) {
             if (error instanceof z.ZodError) {
                 return response.status(400).json({ message: error.issues })
             }
-
-            return response.status(500).json({ message: error })
+            if (error instanceof Error) {
+                return response.status(500).json({ message: error.message })
+            }
         }
     }
 
     async index(request, response) {
         try {
-            const addresses = await Address.findAll()
+            const idSchema = z.object({
+                userId: z
+                .coerce
+                .number({ required_error: "id is required" })
+                .int({ message: "id is an integer" })
+            })
+
+            const { userId } = idSchema.parse(request.params)
+
+            if (!userId) {
+                return response.status(400).json({ message: "this user does not exist" })
+            }
+
+            const addresses = await Address.findAll({
+                where: {
+                    userId: userId
+                }
+            })
 
             if (addresses.length === 0) {
                 return response.json({ message: "there are no addresses stored yet" })
@@ -94,7 +121,12 @@ class AddressController {
 
             return response.json(addresses)
         } catch(error) {
-            return response.status(500).json({ message: error })
+            if (error instanceof z.ZodError) {
+                return response.status(400).json({ message: error.issues })
+            }
+            if (error instanceof Error) {
+                return response.status(500).json({ message: error.message })
+            }
         }
     }
 
@@ -138,15 +170,15 @@ class AddressController {
             if (!address) {
                 return response.status(400).json({ message: "this address does not exist or it is not associated to this user" })
             }
-
             await address.update({ street, number })
-
             return response.status(200).json(address)
         } catch(error) {
             if (error instanceof z.ZodError) {
                 return response.status(400).json({ message: error.issues })
             }
-            return response.status(500).json({ message: error })
+            if (error instanceof Error) {
+                return response.status(500).json({ message: error.message })
+            }
         }
     }
 
@@ -186,7 +218,9 @@ class AddressController {
             if (error instanceof z.ZodError) {
                 return response.status(400).json({ message: error.issues })
             }
-            return response.status(500).json({ message: error })
+            if (error instanceof Error) {
+                return response.status(500).json({ message: error.message })
+            }
         }
     }
 
