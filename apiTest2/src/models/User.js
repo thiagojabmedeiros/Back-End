@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
-
+"use strict"
 class User extends Model {
     static init(sequelize) {
         super.init({
@@ -13,6 +13,7 @@ class User extends Model {
 
     static associate(models) {
         this.hasMany(models.Address, { foreignKey: 'userId', as: 'addresses' })
+        this.belongsToMany(models.Tech, { foreignKey: 'userId', through: 'userTechs', as: 'techs' })
     }
 }
 
