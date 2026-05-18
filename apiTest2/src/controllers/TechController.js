@@ -4,7 +4,23 @@ const { z } = require('zod')
 
 class TechController {
     async index(request, response) {
+        const { userId } = request.params
 
+        const userTechs = await User.findByPk(userId, {
+            attributes: ['name', 'email'],
+            include: {
+                association: 'techs',
+                attributes: ['name'],
+                through: {
+                    attributes: []
+                }
+            }
+        }) 
+        if (!userTechs) {
+            return response.status(400).json({ message: 'user doest not exist'})
+        }
+
+        return response.status(200).json(userTechs)
     }
 
     async create(request, response) {
