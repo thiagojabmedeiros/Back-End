@@ -5,7 +5,14 @@ class UserController {
     async index(request, response) {
         try {
             const users = await User.findAll({
-                attributes: ['name', 'email']
+                attributes: ['name', 'email'],
+                include: {
+                    association: 'techs',
+                    attributes: ['name'],
+                    through: {
+                        attributes: []
+                    }
+                }
             })
             if (users.length === 0) {
                 return response.status(400).json({ message: 'no users created yet' })
@@ -39,7 +46,6 @@ class UserController {
                 return response.status(500).json({ message: error.message })
             } 
         }
-
     }
 
 }
