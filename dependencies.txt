@@ -1,0 +1,12 @@
+dependencies:
+npm i express
+npm i sequelize pg pg-hstore
+npm i jsonwebtoken
+npm i dotenv
+npm i zod
+
+development dependencies:
+npm i --save-dev typescript tsx
+npm i --save-dev sequelize-cli @types/sequelize @types/pg
+npm i --save-dev @types/node @types/express @types/jsonwebtoken
+npm i --save-dev jest ts-jest ts-node @types/jest
