@@ -9,7 +9,10 @@ class User extends Model {
                 primaryKey: true
             },
             name: DataTypes.STRING,
-            role: DataTypes.ENUM("seller", "costumer"),
+            role: {
+                type: DataTypes.ENUM("seller", "costumer"),
+                defaultValue: "costumer"
+            },
             email: DataTypes.STRING,
             password: DataTypes.STRING
         }, {
@@ -17,6 +20,10 @@ class User extends Model {
             tableName: "users",
             underscored: true
         })
+    }
+
+    static associate(models: any) {
+        this.hasMany(models.Delivery, { foreignKey: "user_id", as: "deliveries" })
     }
 }
 

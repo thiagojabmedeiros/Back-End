@@ -4,29 +4,26 @@ import { QueryInterface, DataTypes } from "sequelize"
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface: QueryInterface) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("deliveries", {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
+      user_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: { key: "id", model: "users" },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
-      role: {
-        type: DataTypes.ENUM("seller", "costumer"),
-        defaultValue: "costumer",
-        allowNull: false
-      },
-      email: {
+      description: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        allowNull: true
       },
-      password: {
-        type: DataTypes.STRING,
+      status: {
+        type: DataTypes.ENUM("in progress", "coming to you", "delivered"),
         allowNull: false
       },
       created_at: {
@@ -41,6 +38,6 @@ module.exports = {
   },
 
   async down (queryInterface: QueryInterface) {
-    await queryInterface.dropTable("users")
+    await queryInterface.dropTable("deliveries")
   }
 };
