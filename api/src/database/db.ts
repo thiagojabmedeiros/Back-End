@@ -1,4 +1,4 @@
-import configs from "../config/config"
+import configs from "../config/db-config"
 
 import User from "../models/User"
 import Delivery from "../models/Delivery"

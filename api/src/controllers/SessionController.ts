@@ -1,8 +1,11 @@
 import { Request, Response } from "express"
-import User from "../models/User"
+import { sign } from "jsonwebtoken"
 import { compare } from "bcrypt"
 import { z } from "zod"
+
+import User from "../models/User"
 import AppError from "../utils/AppError"
+import authConfig from "../config/auth-config"
 
 class SessionController {
     async login(request: Request, response: Response) {
@@ -10,23 +13,32 @@ class SessionController {
             email: z.email(),
             password: z.string().min(6)
         })
+
         const { email, password } = bodySchema.parse(request.body)
+
         const user = await User.findOne({
             where: {
                 email: email
             }
         })
+
         if (!user) {
             throw new AppError("Invalid email or password.")
         }
 
         const passwordMatched = await compare(password, user.toJSON().password)
-        
         if (!passwordMatched) {
             throw new AppError("Invalid email or password.")
         }
+        const userObj = user.toJSON()
+        const { secret, expiresIn } = authConfig.jwt
 
-        return response.json({ message: "ok!"})
+        const token = sign({ role: userObj.role }, secret, {
+            subject: userObj.id,
+            expiresIn: expiresIn
+        })
+
+        return response.json({ token })
     }
 }
 
