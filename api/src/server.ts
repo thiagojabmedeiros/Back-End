@@ -1,17 +1,7 @@
-import express from "express"
-
 import database from "./database/db"
-import errorHandling from "./middlewares/error-handling"
-import routes from "./routes"
+import app from "./app"
 
 const PORT = 3333
-const app = express()
-
-app.use(express.json())
-
-app.use(routes)
-
-app.use(errorHandling)
 
 app.listen(PORT, async () => {
     try {

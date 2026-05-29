@@ -10,7 +10,10 @@ class Delivery extends Model {
             },
             user_id: DataTypes.UUID,
             description: DataTypes.STRING,
-            status: DataTypes.ENUM("in progress", "coming to you", "delivered"),
+            status:{ 
+                type: DataTypes.ENUM("in progress", "coming to you", "delivered"),
+                defaultValue: "in progress"
+            },
         }, {
             sequelize,
             tableName: "deliveries",

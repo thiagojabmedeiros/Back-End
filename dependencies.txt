@@ -9,4 +9,5 @@ development dependencies:
 npm i --save-dev typescript tsx
 npm i --save-dev sequelize-cli @types/sequelize @types/pg
 npm i --save-dev @types/node @types/express @types/jsonwebtoken
-npm i --save-dev jest ts-jest ts-node @types/jest
+npm i --save-dev jest ts-jest ts-node @types/jest 
+npm i --save-dev supertest @types/supertest

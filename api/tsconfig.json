@@ -7,7 +7,7 @@
     // Environment Settings
     "target": "es2024",
     "lib": ["ES2024"],
-    "types": ["node"],
+    "types": ["node", "jest"],
     "module": "commonjs",
 
     // Other Outputs

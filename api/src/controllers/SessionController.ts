@@ -38,7 +38,9 @@ class SessionController {
             expiresIn: expiresIn
         })
 
-        return response.json({ token })
+        const { password: _, ...userWithoutPassword } = userObj
+
+        return response.json({ token: token, user: userWithoutPassword })
     }
 }
 
