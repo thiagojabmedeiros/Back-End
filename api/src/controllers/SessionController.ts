@@ -30,6 +30,7 @@ class SessionController {
         if (!passwordMatched) {
             throw new AppError("Invalid email or password.")
         }
+        
         const userObj = user.toJSON()
         const { secret, expiresIn } = authConfig.jwt
 
